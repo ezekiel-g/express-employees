@@ -1,12 +1,12 @@
 import { describe, it, expect, afterEach, jest } from '@jest/globals'
 import dbConnection from '../../db/dbConnection.js'
-import validationHelpers from '../../util/validationHelpers.js'
+import validationHelper from '../../util/validationHelper.js'
 
 jest.mock('../../db/dbConnection.js', () => ({ executeQuery: jest.fn() }))
 
 const sqlQueryFunction = jest.fn()
 
-describe('validationHelpers', () => {
+describe('validationHelper', () => {
     afterEach(() => { jest.clearAllMocks() })
 
     describe('getDepartments', () => {
@@ -18,7 +18,7 @@ describe('validationHelpers', () => {
 
             dbConnection.executeQuery.mockResolvedValueOnce(departments)
 
-            const sqlResult = await validationHelpers.getDepartments()
+            const sqlResult = await validationHelper.getDepartments()
 
             expect(sqlResult).toEqual(departments)
         })
@@ -33,7 +33,7 @@ describe('validationHelpers', () => {
 
             dbConnection.executeQuery.mockResolvedValueOnce(employees)
 
-            const sqlResult = await validationHelpers.getEmployees()
+            const sqlResult = await validationHelper.getEmployees()
 
             expect(sqlResult).toEqual(employees)
         })
@@ -43,7 +43,7 @@ describe('validationHelpers', () => {
         it('returns "pass" when no results returned from query', async () => {
             sqlQueryFunction.mockResolvedValueOnce([])
 
-            const duplicateCheck = await validationHelpers.checkForDuplicate(
+            const duplicateCheck = await validationHelper.checkForDuplicate(
                 { name: 'value1' },
                 sqlQueryFunction
             )
@@ -57,7 +57,7 @@ describe('validationHelpers', () => {
                 { id: 2, name: 'value3' }
             ])
 
-            const duplicateCheck = await validationHelpers.checkForDuplicate(
+            const duplicateCheck = await validationHelper.checkForDuplicate(
                 { name: 'value1' },
                 sqlQueryFunction
             )
@@ -71,7 +71,7 @@ describe('validationHelpers', () => {
                 { id: 2, name: 'value2' }
             ])
 
-            const duplicateCheck = await validationHelpers.checkForDuplicate(
+            const duplicateCheck = await validationHelper.checkForDuplicate(
                 { name: 'value1' },
                 sqlQueryFunction
             )
@@ -85,7 +85,7 @@ describe('validationHelpers', () => {
                 { id: 2, name: 'value2' }
             ])
 
-            const duplicateCheck = await validationHelpers.checkForDuplicate(
+            const duplicateCheck = await validationHelper.checkForDuplicate(
                 { name: 'value1' },
                 sqlQueryFunction,
                 1
@@ -98,7 +98,7 @@ describe('validationHelpers', () => {
     describe('returnSuccess', () => {
         it('returns success message when current value is different', () => {
             const validationResult =
-                validationHelpers.returnSuccess('Name', 'value1', 'value2')
+                validationHelper.returnSuccess('Name', 'value1', 'value2')
 
             expect(validationResult).toEqual({
                 valid: true,
@@ -108,7 +108,7 @@ describe('validationHelpers', () => {
 
         it('returns no message when current value is the same', () => {
             const validationResult =
-                validationHelpers.returnSuccess('Name', 'value1', 'value1')
+                validationHelper.returnSuccess('Name', 'value1', 'value1')
 
             expect(validationResult).toEqual({
                 valid: true,
@@ -118,7 +118,7 @@ describe('validationHelpers', () => {
 
         it('returns no message if current value is null', () => {
             const validationResult =
-                validationHelpers.returnSuccess('Name', 'value1', null)
+                validationHelper.returnSuccess('Name', 'value1', null)
 
             expect(validationResult).toEqual({
                 valid: true,
@@ -128,7 +128,7 @@ describe('validationHelpers', () => {
 
         it('returns no message if current value is undefined', () => {
             const validationResult =
-                validationHelpers.returnSuccess('Name', 'value1', undefined)
+                validationHelper.returnSuccess('Name', 'value1', undefined)
 
             expect(validationResult).toEqual({
                 valid: true,

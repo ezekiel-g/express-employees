@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach, jest }
     from '@jest/globals'
 import validateDepartment from '../../util/validateDepartment.js'
-import validationHelpers from '../../util/validationHelpers.js'
+import validationHelper from '../../util/validationHelper.js'
 
-jest.mock('../../util/validationHelpers.js')
+jest.mock('../../util/validationHelper.js')
 
 describe('validateDepartment', () => {
     const defaultRequestBody = { name: 'IT', code: 'IT1', location: 'New York' }
@@ -21,10 +21,10 @@ describe('validateDepartment', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         }
-        validationHelpers.checkForDuplicate.mockResolvedValue('pass')
-        validationHelpers.returnSuccess
+        validationHelper.checkForDuplicate.mockResolvedValue('pass')
+        validationHelper.returnSuccess
             .mockReturnValue({ valid: true, message: '' })
-        jest.spyOn(validationHelpers, 'getDepartments')
+        jest.spyOn(validationHelper, 'getDepartments')
             .mockResolvedValue(existingDepartments)
     })
     afterEach(() => { jest.clearAllMocks() })
@@ -72,7 +72,7 @@ describe('validateDepartment', () => {
     })
 
     it('returns validation error for duplicate code', async () => {
-        validationHelpers.checkForDuplicate.mockResolvedValue('fail')
+        validationHelper.checkForDuplicate.mockResolvedValue('fail')
         await validateDepartment(request, response)
         expect(response.json).toHaveBeenCalledWith({
             message,

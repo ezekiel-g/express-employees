@@ -1,4 +1,4 @@
-import validationHelpers from './validationHelpers.js'
+import validationHelper from './validationHelper.js'
 
 const validateName = (input, currentValue = null) => {
     if (!input || input.trim() === '') {
@@ -14,7 +14,7 @@ const validateName = (input, currentValue = null) => {
         }
     }
     
-    return validationHelpers.returnSuccess('Name', input, currentValue)
+    return validationHelper.returnSuccess('Name', input, currentValue)
 }
 
 const validateCode = async (
@@ -36,9 +36,9 @@ const validateCode = async (
     }
 
     if (!skipDuplicateCheck) {
-        const duplicateCheck = await validationHelpers.checkForDuplicate(
+        const duplicateCheck = await validationHelper.checkForDuplicate(
             { code: input },
-            validationHelpers.getDepartments,
+            validationHelper.getDepartments,
             excludeId
         )
 
@@ -47,7 +47,7 @@ const validateCode = async (
         }
     }
 
-    return validationHelpers.returnSuccess('Code', input, currentValue)
+    return validationHelper.returnSuccess('Code', input, currentValue)
 }
 
 const validateLocation = (input, currentValue = null) => {
@@ -61,7 +61,7 @@ const validateLocation = (input, currentValue = null) => {
         return { valid: false, message: 'Location not currently valid' }
     }
 
-    return validationHelpers.returnSuccess('Location', input, currentValue)
+    return validationHelper.returnSuccess('Location', input, currentValue)
 }
 
 const validateDepartment = async (
@@ -79,7 +79,7 @@ const validateDepartment = async (
     
     if (excludeId) {
         excludeId = Number(excludeId)
-        const departments = await validationHelpers.getDepartments()
+        const departments = await validationHelper.getDepartments()
         currentDetails = departments.find(row => row.id === excludeId)
     }
     

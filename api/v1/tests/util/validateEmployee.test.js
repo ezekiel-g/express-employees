@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach, jest }
     from '@jest/globals'
 import validateEmployee from '../../util/validateEmployee.js'
-import validationHelpers from '../../util/validationHelpers.js'
+import validationHelper from '../../util/validationHelper.js'
 
-jest.mock('../../util/validationHelpers.js')
+jest.mock('../../util/validationHelper.js')
 
 describe('validateEmployee', () => {
     const defaultRequestBody = {
@@ -66,12 +66,12 @@ describe('validateEmployee', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         }
-        validationHelpers.checkForDuplicate.mockResolvedValue('pass')
-        validationHelpers.returnSuccess
+        validationHelper.checkForDuplicate.mockResolvedValue('pass')
+        validationHelper.returnSuccess
             .mockReturnValue({ valid: true, message: '' })
-        jest.spyOn(validationHelpers, 'getEmployees')
+        jest.spyOn(validationHelper, 'getEmployees')
             .mockResolvedValue(existingEmployees)
-        jest.spyOn(validationHelpers, 'getDepartments')
+        jest.spyOn(validationHelper, 'getDepartments')
             .mockResolvedValue(existingDepartments)
     })
     afterEach(() => { jest.clearAllMocks() })
@@ -161,7 +161,7 @@ describe('validateEmployee', () => {
     })
 
     it('returns validation error for duplicate email', async () => {
-        validationHelpers.checkForDuplicate.mockResolvedValue('fail')
+        validationHelper.checkForDuplicate.mockResolvedValue('fail')
         await validateEmployee(request, response)
         expect(response.json).toHaveBeenCalledWith({
             message,

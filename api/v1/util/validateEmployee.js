@@ -1,4 +1,4 @@
-import validationHelpers from './validationHelpers.js'
+import validationHelper from './validationHelper.js'
 
 const validateFirstName = (input, currentValue = null) => {
     if (!input || input.trim() === '') {
@@ -14,7 +14,7 @@ const validateFirstName = (input, currentValue = null) => {
         }
     }
 
-    return validationHelpers.returnSuccess('First name', input, currentValue)
+    return validationHelper.returnSuccess('First name', input, currentValue)
 }
 
 const validateLastName = (input, currentValue = null) => {
@@ -31,7 +31,7 @@ const validateLastName = (input, currentValue = null) => {
         }
     }
 
-    return validationHelpers.returnSuccess('Last name', input, currentValue)
+    return validationHelper.returnSuccess('Last name', input, currentValue)
 }
 
 const validateTitle = (input, currentValue = null) => {
@@ -48,7 +48,7 @@ const validateTitle = (input, currentValue = null) => {
         }
     }
 
-    return validationHelpers.returnSuccess('Job title', input, currentValue)
+    return validationHelper.returnSuccess('Job title', input, currentValue)
 }
 
 const validateDepartmentId = async (input, currentValue = null) => {
@@ -63,13 +63,13 @@ const validateDepartmentId = async (input, currentValue = null) => {
         }
     }
     
-    const departments = await validationHelpers.getDepartments()
+    const departments = await validationHelper.getDepartments()
     
     if (!departments.some(row => row.id === input)) {
         return { valid: false, message: 'Invalid department' }
     }
     
-    return validationHelpers.returnSuccess('Department', input, currentValue)
+    return validationHelper.returnSuccess('Department', input, currentValue)
 }
 
 const validateEmail = async (
@@ -95,9 +95,9 @@ const validateEmail = async (
     }
     
     if (!skipDuplicateCheck) {
-        const duplicateCheck = await validationHelpers.checkForDuplicate(
+        const duplicateCheck = await validationHelper.checkForDuplicate(
             { email: input },
-            validationHelpers.getEmployees,
+            validationHelper.getEmployees,
             excludeId
         )
         
@@ -106,7 +106,7 @@ const validateEmail = async (
         }
     }
     
-    return validationHelpers.returnSuccess('Email address', input, currentValue)
+    return validationHelper.returnSuccess('Email address', input, currentValue)
 }
 
 const validateCountryCode = (input, currentValue = null) => {
@@ -122,7 +122,7 @@ const validateCountryCode = (input, currentValue = null) => {
         }
     }
 
-    return validationHelpers.returnSuccess('Country code', input, currentValue)
+    return validationHelper.returnSuccess('Country code', input, currentValue)
 }
 
 const validatePhoneNumber = (input, currentValue = null) => {
@@ -138,7 +138,7 @@ const validatePhoneNumber = (input, currentValue = null) => {
         }
     }
 
-    return validationHelpers.returnSuccess('Phone number', input, currentValue)
+    return validationHelper.returnSuccess('Phone number', input, currentValue)
 }
 
 const validateIsActive = (input, currentValue = null) => {
@@ -146,7 +146,7 @@ const validateIsActive = (input, currentValue = null) => {
         return { valid: false, message: 'Active status must be 0 or 1' }
     }
 
-    return validationHelpers.returnSuccess('Active status', input, currentValue)
+    return validationHelper.returnSuccess('Active status', input, currentValue)
 }
 
 const validateHireDate = (input, currentValue = null) => {
@@ -154,9 +154,11 @@ const validateHireDate = (input, currentValue = null) => {
         return { valid: false, message: 'Hire date required' }
     }
     
-    if (currentValue) currentValue = currentValue.toISOString().split('T')[0]
+    if (currentValue && currentValue instanceof Date) {
+        currentValue = currentValue.toISOString().split('T')[0]
+    }
     
-    return validationHelpers.returnSuccess('Hire date', input, currentValue)
+    return validationHelper.returnSuccess('Hire date', input, currentValue)
 }
 
 const validateEmployee = async (
@@ -184,7 +186,7 @@ const validateEmployee = async (
 
     if (excludeId) {
         excludeId = Number(excludeId)
-        const employees = await validationHelpers.getEmployees()
+        const employees = await validationHelper.getEmployees()
         currentDetails = employees.find(row => row.id === excludeId)
     }
     
