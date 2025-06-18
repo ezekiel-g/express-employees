@@ -52,42 +52,42 @@ beforeEach(() => {
     )
 })
 
-describe('Employee Router', () => {
+describe('employeeRoutes', () => {
     let app
 
     beforeEach(() => {
         app = express()
         app.use(express.json())
-        app.use('/api/employees', employeeRouter)
+        app.use('/api/v1/employees', employeeRouter)
     })
     afterEach(() => { jest.clearAllMocks() })
 
-    it('handles GET /api/employees', async () => {
-        const response = await request(app).get('/api/employees')
+    it('handles GET /api/v1/employees', async () => {
+        const response = await request(app).get('/api/v1/employees')
         expect(response.status).toBe(200)
     })
 
-    it('handles GET /api/employees/:id', async () => {
-        const response = await request(app).get('/api/employees/1')
+    it('handles GET /api/v1/employees/:id', async () => {
+        const response = await request(app).get('/api/v1/employees/1')
         expect(response.status).toBe(200)
     })
 
-    it('handles POST /api/employees', async () => {
-        const response = await request(app).post('/api/employees').send({
+    it('handles POST /api/v1/employees', async () => {
+        const response = await request(app).post('/api/v1/employees').send({
             last_name: 'Smith'
         })
         expect(response.status).toBe(201)
     })
 
-    it('handles PATCH /api/employees/:id', async () => {
-        const response = await request(app).patch('/api/employees/1').send({
+    it('handles PATCH /api/v1/employees/:id', async () => {
+        const response = await request(app).patch('/api/v1/employees/1').send({
             last_name: 'Jones'
         })
         expect(response.status).toBe(200)
     })
 
-    it('handles DELETE /api/employees/:id', async () => {
-        const response = await request(app).delete('/api/employees/1')
+    it('handles DELETE /api/v1/employees/:id', async () => {
+        const response = await request(app).delete('/api/v1/employees/1')
         expect(response.status).toBe(200)
     })
 })

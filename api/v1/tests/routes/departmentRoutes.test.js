@@ -49,40 +49,41 @@ beforeEach(() => {
     )
 })
 
-describe('Department Router', () => {
+describe('departmentRoutes', () => {
     let app
 
     beforeEach(() => {
         app = express()
         app.use(express.json())
-        app.use('/api/departments', departmentRoutes)
+        app.use('/api/v1/departments', departmentRoutes)
     })
     afterEach(() => { jest.clearAllMocks() })
 
-    it('handles GET /api/departments', async () => {
-        const response = await request(app).get('/api/departments')
+    it('handles GET /api/v1/departments', async () => {
+        const response = await request(app).get('/api/v1/departments')
         expect(response.status).toBe(200)
     })
 
-    it('handles GET /api/departments/:id', async () => {
-        const response = await request(app).get('/api/departments/1')
+    it('handles GET /api/v1/departments/:id', async () => {
+        const response = await request(app).get('/api/v1/departments/1')
         expect(response.status).toBe(200)
     })
 
-    it('handles POST /api/departments', async () => {
+    it('handles POST /api/v1/departments', async () => {
         const response =
-            await request(app).post('/api/departments').send({ name: 'IT' })
+            await request(app).post('/api/v1/departments').send({ name: 'IT' })
         expect(response.status).toBe(201)
     })
 
-    it('handles PATCH /api/departments/:id', async () => {
+    it('handles PATCH /api/v1/departments/:id', async () => {
         const response =
-            await request(app).patch('/api/departments/1').send({ name: 'HR' })
+            await request(app)
+                .patch('/api/v1/departments/1').send({ name: 'HR' })
         expect(response.status).toBe(200)
     })
 
-    it('handles DELETE /api/departments/:id', async () => {
-        const response = await request(app).delete('/api/departments/1')
+    it('handles DELETE /api/v1/departments/:id', async () => {
+        const response = await request(app).delete('/api/v1/departments/1')
         expect(response.status).toBe(200)
     })
 })
