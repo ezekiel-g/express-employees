@@ -188,6 +188,14 @@ const validateEmployee = async (
         excludeId = Number(excludeId)
         const employees = await validationHelper.getEmployees()
         currentDetails = employees.find(row => row.id === excludeId)
+        
+        if (
+            currentDetails?.hire_date &&
+            typeof currentDetails.hire_date === 'object'
+        ) {
+            currentDetails.hire_date = currentDetails.hire_date.toISOString()
+            currentDetails.hire_date = currentDetails.hire_date.split('T')[0]
+        }
     }
     
     const firstNameValid =
@@ -196,12 +204,19 @@ const validateEmployee = async (
     if (!firstNameValid.valid) {
         validationErrors.push(firstNameValid.message)
     } else {
-        if (firstNameValid.message) {
-            successfulUpdates.push(firstNameValid.message) 
+        if (excludeId) {
+            if (
+                firstNameValid.message &&
+                firstName !== currentDetails.first_name
+            ) {
+                successfulUpdates.push(firstNameValid.message)
+                queryFields.push('first_name = ?')
+                queryParams.push(firstName)
+            }
+        } else {
+            queryFields.push('first_name = ?')
+            queryParams.push(firstName)            
         }
-
-        queryFields.push('first_name = ?')
-        queryParams.push(firstName)
     }
 
     const lastNameValid = validateLastName(lastName, currentDetails?.last_name)
@@ -209,12 +224,19 @@ const validateEmployee = async (
     if (!lastNameValid.valid) {
         validationErrors.push(lastNameValid.message)
     } else {
-        if (lastNameValid.message) {
-            successfulUpdates.push(lastNameValid.message) 
+        if (excludeId) {
+            if (
+                lastNameValid.message &&
+                lastName !== currentDetails.last_name
+            ) {
+                successfulUpdates.push(lastNameValid.message)
+                queryFields.push('last_name = ?')
+                queryParams.push(lastName)
+            }
+        } else {
+            queryFields.push('last_name = ?')
+            queryParams.push(lastName)
         }
-        
-        queryFields.push('last_name = ?')
-        queryParams.push(lastName)
     }
 
     const titleValid = validateTitle(title, currentDetails?.title)
@@ -222,12 +244,16 @@ const validateEmployee = async (
     if (!titleValid.valid) {
         validationErrors.push(titleValid.message)
     } else {
-        if (titleValid.message) {
-            successfulUpdates.push(titleValid.message) 
+        if (excludeId) {
+            if (titleValid.message && title !== currentDetails.title) {
+                successfulUpdates.push(titleValid.message)
+                queryFields.push('title = ?')
+                queryParams.push(title)
+            }
+        } else {
+            queryFields.push('title = ?')
+            queryParams.push(title)            
         }
-
-        queryFields.push('title = ?')
-        queryParams.push(title)
     }
 
     const departmentIdValid =
@@ -236,12 +262,19 @@ const validateEmployee = async (
     if (!departmentIdValid.valid) {
         validationErrors.push(departmentIdValid.message)
     } else {
-        if (departmentIdValid.message) {
-            successfulUpdates.push(departmentIdValid.message) 
+        if (excludeId) {
+            if (
+                departmentIdValid.message &&
+                departmentId !== currentDetails.department_id
+            ) {
+                successfulUpdates.push(departmentIdValid.message)
+                queryFields.push('department_id = ?')
+                queryParams.push(departmentId)
+            }
+        } else {
+            queryFields.push('department_id = ?')
+            queryParams.push(departmentId)            
         }
-
-        queryFields.push('department_id = ?')
-        queryParams.push(departmentId)
     }
 
     const emailValid = await validateEmail(
@@ -254,12 +287,16 @@ const validateEmployee = async (
     if (!emailValid.valid) {
         validationErrors.push(emailValid.message)
     } else {
-        if (emailValid.message) {
-            successfulUpdates.push(emailValid.message) 
+        if (excludeId) {
+            if (emailValid.message && email !== currentDetails.email) {
+                successfulUpdates.push(emailValid.message)
+                queryFields.push('email = ?')
+                queryParams.push(email)
+            }
+        } else {
+            queryFields.push('email = ?')
+            queryParams.push(email)
         }
-
-        queryFields.push('email = ?')
-        queryParams.push(email)
     }
 
     const countryCodeValid =
@@ -268,12 +305,19 @@ const validateEmployee = async (
     if (!countryCodeValid.valid) {
         validationErrors.push(countryCodeValid.message)
     } else {
-        if (countryCodeValid.message) {
-            successfulUpdates.push(countryCodeValid.message) 
+        if (excludeId) {
+            if (
+                countryCodeValid.message &&
+                countryCode !== currentDetails.country_code
+            ) {
+                successfulUpdates.push(countryCodeValid.message)
+                queryFields.push('country_code = ?')
+                queryParams.push(countryCode)
+            }
+        } else {
+            queryFields.push('country_code = ?')
+            queryParams.push(countryCode)
         }
-
-        queryFields.push('country_code = ?')
-        queryParams.push(countryCode)
     }
 
     const phoneNumberValid =
@@ -282,12 +326,19 @@ const validateEmployee = async (
     if (!phoneNumberValid.valid) {
         validationErrors.push(phoneNumberValid.message)
     } else {
-        if (phoneNumberValid.message) {
-            successfulUpdates.push(phoneNumberValid.message) 
+        if (excludeId) {
+            if (
+                phoneNumberValid.message &&
+                phoneNumber !== currentDetails.phone_number
+            ) {
+                successfulUpdates.push(phoneNumberValid.message)
+                queryFields.push('phone_number = ?')
+                queryParams.push(phoneNumber)
+            }
+        } else {
+            queryFields.push('phone_number = ?')
+            queryParams.push(phoneNumber)
         }
-
-        queryFields.push('phone_number = ?')
-        queryParams.push(phoneNumber)
     }    
 
     const isActiveValid = validateIsActive(isActive, currentDetails?.is_active)
@@ -295,12 +346,19 @@ const validateEmployee = async (
     if (!isActiveValid.valid) {
         validationErrors.push(isActiveValid.message)
     } else {
-        if (isActiveValid.message) {
-            successfulUpdates.push(isActiveValid.message) 
+        if (excludeId) {
+            if (
+                isActiveValid.message &&
+                isActive !== currentDetails.is_active
+            ) {
+                successfulUpdates.push(isActiveValid.message)
+                queryFields.push('is_active = ?')
+                queryParams.push(isActive)
+            }
+        } else {
+            queryFields.push('is_active = ?')
+            queryParams.push(isActive)
         }
-
-        queryFields.push('is_active = ?')
-        queryParams.push(isActive)
     }
 
     const hireDateValid = validateHireDate(hireDate, currentDetails?.hire_date)
@@ -308,12 +366,19 @@ const validateEmployee = async (
     if (!hireDateValid.valid) {
         validationErrors.push(hireDateValid.message)
     } else {
-        if (hireDateValid.message) {
-            successfulUpdates.push(hireDateValid.message) 
+        if (excludeId) {
+            if (
+                hireDateValid.message &&
+                hireDate !== currentDetails.hire_date
+            ) {
+                successfulUpdates.push(hireDateValid.message)
+                queryFields.push('hire_date = ?')
+                queryParams.push(hireDate)
+            }
+        } else {
+            queryFields.push('hire_date = ?')
+            queryParams.push(hireDate)
         }
-
-        queryFields.push('hire_date = ?')
-        queryParams.push(hireDate)
     }
     
     if (
@@ -323,7 +388,7 @@ const validateEmployee = async (
     ) {
         validationErrors.push('No changes detected')
     }
-    
+
     if (validationErrors.length > 0) {
         return response.status(400).json({
             message: 'Validation failed',

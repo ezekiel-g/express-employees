@@ -88,9 +88,16 @@ const validateDepartment = async (
     if (!nameValid.valid) {
         validationErrors.push(nameValid.message)
     } else {
-        if (nameValid.message) successfulUpdates.push(nameValid.message) 
-        queryFields.push('name = ?')
-        queryParams.push(name)
+        if (excludeId) {
+            if (nameValid.message && name !== currentDetails.name) {
+                successfulUpdates.push(nameValid.message) 
+                queryFields.push('name = ?')
+                queryParams.push(name)
+            }
+        } else {
+            queryFields.push('name = ?')
+            queryParams.push(name)            
+        }
     }
 
     const codeValid = await validateCode(
@@ -103,9 +110,16 @@ const validateDepartment = async (
     if (!codeValid.valid) {
         validationErrors.push(codeValid.message)
     } else {
-        if (codeValid.message) successfulUpdates.push(codeValid.message)
-        queryFields.push('code = ?')
-        queryParams.push(code)
+        if (excludeId) {
+            if (codeValid.message && code !== currentDetails.code) {
+                successfulUpdates.push(codeValid.message)
+                queryFields.push('code = ?')
+                queryParams.push(code)
+            }
+        } else {
+            queryFields.push('code = ?')
+            queryParams.push(code)            
+        }
     }
 
     const locationValid = validateLocation(location, currentDetails?.location)
@@ -113,9 +127,16 @@ const validateDepartment = async (
     if (!locationValid.valid) {
         validationErrors.push(locationValid.message)
     } else {
-        if (locationValid.message) successfulUpdates.push(locationValid.message)
-        queryFields.push('location = ?')
-        queryParams.push(location)
+        if (excludeId) {
+            if (locationValid.message && location !== currentDetails.location) {
+                successfulUpdates.push(locationValid.message)
+                queryFields.push('location = ?')
+                queryParams.push(location)
+            }
+        } else {
+            queryFields.push('location = ?')
+            queryParams.push(location)            
+        }
     }
 
     if (
@@ -125,7 +146,7 @@ const validateDepartment = async (
     ) {
         validationErrors.push('No changes detected')
     }
-    
+
     if (validationErrors.length > 0) {
         return response.status(400).json({
             message: 'Validation failed',

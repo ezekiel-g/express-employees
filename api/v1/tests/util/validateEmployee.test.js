@@ -33,6 +33,7 @@ describe('validateEmployee', () => {
     ]
     const existingEmployees = [
         {
+            id: 1,
             first_name: 'Michael',
             last_name: 'Smith',
             title: 'IT Manager',
@@ -41,7 +42,7 @@ describe('validateEmployee', () => {
             country_code: '1',
             phone_number: '1234567890',
             is_active: 1,
-            hire_date: '2022-01-30'  
+            hire_date: new Date('2022-01-30T00:00:00Z')
         },
         { 
             id: 2,
@@ -53,7 +54,7 @@ describe('validateEmployee', () => {
             country_code: '1',
             phone_number: '0987654321',
             is_active: 1,
-            hire_date: '2023-06-20T00:00:00Z' 
+            hire_date: new Date('2023-06-20T00:00:00Z')
         }
     ]
     const message = 'Validation failed'
