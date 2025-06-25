@@ -24,7 +24,7 @@ INSERT INTO employees (
     hire_date
 )
 VALUES
-    -- Sales Department
+    -- Sales department
     ('John', 'Doe', 'Sales Manager', 1, 'john.doe@example.com', '1', '5551234567', 1, '2021-03-15'),
     ('Jane', 'Smith', 'Sales Representative', 1, 'jane.smith@example.com', '1', '5552345678', 1, '2020-07-25'),
     ('Alice', 'Johnson', 'Sales Associate', 1, 'alice.johnson@example.com', '1', '5553456789', 1, '2019-11-02'),
@@ -32,7 +32,7 @@ VALUES
     ('Charlie', 'Davis', 'Sales Associate', 1, 'charlie.davis@example.com', '1', '5555678901', 1, '2021-06-10'),
     ('David', 'Schmidt', 'Sales Coordinator', 1, 'david.schmidt@example.com', '49', '5556789012', 1, '2020-02-28'),
 
-    -- Marketing Department
+    -- Marketing department
     ('William', 'Scott', 'Marketing Manager', 2, 'william.scott@example.com', '1', '5551236547', 1, '2021-05-05'),
     ('Olivia', 'Koch', 'Marketing Specialist', 2, 'olivia.koch@example.com', '49', '5552347658', 1, '2020-08-20'),
     ('James', 'Baker', 'Marketing Coordinator', 2, 'james.baker@example.com', '49', '5553458769', 1, '2022-06-12'),
@@ -43,7 +43,7 @@ VALUES
     ('Lucas', 'Clark', 'Junior Marketing Coordinator', 2, 'lucas.clark@example.com', '1', '5558903214', 1, '2021-10-05'),
     ('Harper', 'Allen', 'Digital Marketing Specialist', 2, 'harper.allen@example.com', '34', '5559014325', 1, '2022-01-18'),
 
-    -- Engineering Department
+    -- Engineering department
     ('Emma', 'Williams', 'Software Engineer', 3, 'emma.williams@example.com', '1', '5551231234', 1, '2021-03-10'),
     ('Oliver', 'Miller', 'Senior Software Engineer', 3, 'oliver.miller@example.com', '1', '5552342345', 1, '2020-06-15'),
     ('Liam', 'Wilson', 'Engineering Lead', 3, 'liam.wilson@example.com', '1', '5553453456', 1, '2019-12-01'),
@@ -55,7 +55,7 @@ VALUES
     ('James', 'Garcia', 'DevOps Engineer', 3, 'james.garcia@example.com', '1', '5559019012', 1, '2022-01-15'),
     ('Ethan', 'Santos', 'QA Engineer', 3, 'ethan.santos@example.com', '55', '5555678765', 1, '2021-10-01'),
 
-    -- HR Department
+    -- HR department
     ('Lucas', 'Harris', 'HR Manager', 4, 'lucas.harris@example.com', '1', '5551234321', 1, '2021-02-01'),
     ('Mia', 'Lopez', 'HR Specialist', 4, 'mia.lopez@example.com', '1', '5552345432', 1, '2020-04-05'),
     ('Benjamin', 'Rodriguez', 'HR Coordinator', 4, 'benjamin.rodriguez@example.com', '1', '5553456543', 1, '2022-03-15'),
