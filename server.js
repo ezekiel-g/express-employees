@@ -1,9 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
-
-import departmentRoutes from './api/v1/routes/departmentRoutes.js'
-import employeeRoutes from './api/v1/routes/employeeRoutes.js'
+import createCrudRouter from './api/v1/factories/createCrudRouter.js'
 
 dotenv.config()
 
@@ -17,9 +15,8 @@ const corsOptions = {
 
 app.use(express.json())
 app.use(cors(corsOptions))
-
-app.use('/api/v1/departments', departmentRoutes)
-app.use('/api/v1/employees', employeeRoutes)
+app.use('/api/v1/departments', createCrudRouter('departments'))
+app.use('/api/v1/employees', createCrudRouter('employees'))
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
