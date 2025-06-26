@@ -1,4 +1,4 @@
-Express Employees is a Node Express API that demonstrates interacting with a
+Express Employees is a Node Express API that demonstrates interaction with a
 MySQL database, showcasing a one-to-many relationship between entities.
 
 To use this app for other MySQL database tables, change the routes in
