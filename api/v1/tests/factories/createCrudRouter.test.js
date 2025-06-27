@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, jest }
+import { describe, it, expect, beforeAll, afterAll, afterEach, jest }
     from '@jest/globals'
 import request from 'supertest'
 import express from 'express'
@@ -21,6 +21,8 @@ describe('createCrudRouter', () => {
 
         jest.spyOn(console, 'error').mockImplementation(() => {})
     })
+
+    afterEach(() => jest.clearAllMocks())
 
     afterAll(() => console.error.mockRestore())
 
